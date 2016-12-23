@@ -34,7 +34,7 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <OutputPath>bin\Windows\Release\</OutputPath>
+    <OutputPath>bin\DesktopGL\Release\</OutputPath>
     <DefineConstants>TRACE,WINDOWS</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
