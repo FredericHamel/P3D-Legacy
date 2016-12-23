@@ -85,14 +85,15 @@
   </PropertyGroup>
 
   <Target Name="RunContentBuilder">
-    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="&quot;$(ProjectDir)..\2.5DHeroContent\MGCB_Tool.exe&quot;" />
-    <Exec Condition=" '%(ContentReferences.FullPath)' != '' " Command="$(MonoGameContentBuilderCmd) /@:&quot;%(ContentReferences.FullPath)&quot; $(Header)"
+    <!-- <Exec Condition="'$(OS)' == 'Windows_NT'" Command="&quot;$(ProjectDir)..\2.5DHeroContent\MGCB_Tool.exe&quot;" /> -->
+    <!-- <Exec Condition=" '%(ContentReferences.FullPath)' != '' " Command="$(MonoGameContentBuilderCmd) /@:&quot;%(ContentReferences.FullPath)&quot; $(Header)"
           WorkingDirectory="%(ContentReferences.RootDir)%(ContentReferences.Directory)" />
-
+	-->
     <CreateItem Include="$(ParentOutputDir)\**\*.*">
           <Output TaskParameter="Include" ItemName="ExtraContent" />
     </CreateItem>
   </Target>
+
 
   <Target Name="BuildContent" DependsOnTargets="Prepare;RunContentBuilder"
         Outputs="%(ExtraContent.RecursiveDir)%(ExtraContent.Filename)%(ExtraContent.Extension)">

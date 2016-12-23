@@ -49,7 +49,10 @@ Public Class GameController
     Public Graphics As GraphicsDeviceManager
     Public FPSMonitor As FPSMonitor
 
+    Private window_change As Boolean
+
     Public Sub New()
+        Me.window_change = False
         Graphics = New GraphicsDeviceManager(Me)
         Content.RootDirectory = "Content"
 
@@ -81,6 +84,10 @@ Public Class GameController
     End Sub
 
     Protected Overrides Sub Update(ByVal gameTime As GameTime)
+        If Me.window_change Then
+            SetWindowSize(New Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height))
+            Me.window_change = Not Me.window_change
+        End If
         Core.Update(gameTime)
         MyBase.Update(gameTime)
 
@@ -105,16 +112,17 @@ Public Class GameController
     Protected Overrides Sub OnExiting(sender As Object, args As System.EventArgs)
         GameJolt.SessionManager.Close()
 
-        If Core.ServersManager.ServerConnection.Connected = True Then
-            Core.ServersManager.ServerConnection.Abort()
-        End If
+        'If Core.ServersManager.ServerConnection.Connected = True Then
+        'Core.ServersManager.ServerConnection.Abort()
+        'End If
 
         Logger.Debug("---Exit Game---")
     End Sub
 
     Protected Sub Window_ClientSizeChanged(ByVal sender As Object, ByVal e As EventArgs)
+        Me.window_change = True
         Core.windowSize = New Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height)
-
+        'Core.SetWindowSize(New Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height))
         If Not Core.CurrentScreen Is Nothing Then
             Core.CurrentScreen.SizeChanged()
             Screen.TextBox.PositionY = Core.windowSize.Height - 160.0F

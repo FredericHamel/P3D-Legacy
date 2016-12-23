@@ -29,6 +29,8 @@
 
     Public OffsetMaps As New Dictionary(Of String, List(Of List(Of Entity)))
 
+
+
     Public Sub Initialize(ByVal gameReference As GameController)
         GameInstance = gameReference
 
@@ -52,11 +54,10 @@
         GraphicsDevice.PresentationParameters.BackBufferFormat = SurfaceFormat.Rgba1010102
         GraphicsDevice.PresentationParameters.DepthStencilFormat = DepthFormat.Depth24Stencil8
 
-        windowSize = New Rectangle(0, 0, CInt(GameOptions.WindowSize.X), CInt(GameOptions.WindowSize.Y))
-
         GraphicsManager.PreferMultiSampling = True
 
         GraphicsManager.ApplyChanges()
+        windowSize = New Rectangle(0, 0, CInt(GameOptions.WindowSize.X), CInt(GameOptions.WindowSize.Y))
 
         Canvas.SetupCanvas()
         Player = New Player()
@@ -180,7 +181,7 @@
             CurrentScreen.Draw()
 
             If Not Core.Player Is Nothing Then
-                If Core.Player.IsGamejoltSave = True Then
+                If Core.Player.IsGameJoltSave = True Then
                     GameJolt.Emblem.DrawNewEmblems()
                 End If
                 Core.Player.DrawLevelUp()
@@ -273,7 +274,6 @@
     Public Sub SetWindowSize(ByVal Size As Vector2)
         GraphicsManager.PreferredBackBufferWidth = CInt(Size.X)
         GraphicsManager.PreferredBackBufferHeight = CInt(Size.Y)
-
         GraphicsManager.ApplyChanges()
 
         windowSize = New Rectangle(0, 0, CInt(Size.X), CInt(Size.Y))
